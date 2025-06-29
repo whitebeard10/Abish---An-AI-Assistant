@@ -1,0 +1,4 @@
+SpeechRecognition~=3.14.3
+openai~=1.93.0
+langchain~=0.3.26
+gTTS~=2.5.4
