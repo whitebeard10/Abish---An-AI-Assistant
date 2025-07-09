@@ -3,10 +3,12 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout,
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QFont, QIcon
 import os
+import random
 
 
 class MainWindow(QMainWindow):
     update_signal = pyqtSignal(str)
+    listening_state_changed = pyqtSignal(bool)
 
     def __init__(self, jarvis_instance):
         super().__init__()
@@ -106,6 +108,31 @@ class MainWindow(QMainWindow):
             self.btn_listen.setText("Start Listening")
             self.update_status("Standby mode")
             # Stop listening thread here
+
+    def speak_welcome(self):
+        welcome_msg = (
+            "Initializing JARVIS systems. "
+            "All protocols operational. "
+            "How may I assist you today?"
+        )
+        return self.speak(welcome_msg)
+
+    def speak_confirmation(self, command):
+        confirmations = [
+            f"Executing: {command}",
+            f"Working on: {command}",
+            f"Processing: {command}"
+        ]
+        return self.speak(random.choice(confirmations))
+
+    def speak_followup(self):
+        followups = [
+            "Would you like anything else?",
+            "What else can I do for you?",
+            "Your next command, sir?",
+            "How else may I assist?"
+        ]
+        return self.speak(random.choice(followups))
 
     def update_status(self, message):
         """Update status display with timestamp"""
